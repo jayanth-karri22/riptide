@@ -1,0 +1,16 @@
+# binaries
+riptide-ingest
+*.exe
+
+# data — never commit tape
+*.jsonl
+data/
+
+# editor / OS noise
+.vscode/
+.idea/
+.DS_Store
+
+# env & secrets
+.env
+*.tfvars

@@ -1,0 +1,6 @@
+{
+    // ADRs use + and - bullets for pros/cons
+    "MD004": false,
+    // prose lines can be long
+    "MD013": false
+}
