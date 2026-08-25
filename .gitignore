@@ -1,5 +1,5 @@
 # binaries
-riptide-ingest
+/riptide-ingest
 *.exe
 
 # data — never commit tape
