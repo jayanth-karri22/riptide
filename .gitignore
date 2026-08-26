@@ -17,3 +17,6 @@ data/
 
 # plan of record
 /plan/
+
+# local-only operator scripts + run artefacts
+/.local/
