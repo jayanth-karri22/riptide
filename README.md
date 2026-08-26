@@ -1,6 +1,6 @@
 # Riptide Terminal
 
-A bloomberg terminal for crypto - AI-native, open core at about a thousandth of the price.
+An AI-native crypto market terminal. Open core and self-hostable.
 
 Nothing usable yet — this is the ground floor.
 
