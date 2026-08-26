@@ -18,8 +18,7 @@ from the first commit, so they start now.
   `feat:` → MINOR, `BREAKING CHANGE` → MAJOR.
 - Until `v1.0.0`, 0.x rules apply: anything may change between
   minor versions. Phase ends cut `v0.<phase>.0` tags.
-- CI will eventually enforce the commit format (Phase 1, P1.03
-  or later).
+- CI will eventually enforce the commit format.
 
 ## Consequences
 
