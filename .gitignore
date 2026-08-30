@@ -2,7 +2,7 @@
 /riptide-ingest
 *.exe
 
-# data — never commit tape
+# data
 *.jsonl
 data/
 
@@ -12,8 +12,16 @@ data/
 .DS_Store
 
 # env & secrets
-.env
+.env*
+!.env.example
 *.tfvars
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+crash.log
+crash.*.log
+*.agekey
 
 # plan of record
 /plan/

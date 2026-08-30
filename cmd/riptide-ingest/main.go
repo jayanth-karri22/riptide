@@ -29,15 +29,19 @@ func stream(url string, f *os.File) error {
 }
 
 func main() {
-	f, err := os.OpenFile("trades.jsonl", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	cfg, err := Load()
+	if err != nil {
+		log.Fatal("Config:", err)
+	}
+
+	f, err := os.OpenFile(cfg.OutputPath, os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {
 		log.Fatal("Open File:", err)
 	}
 	defer f.Close()
 
-	url := "wss://stream.binance.com:9443/ws/btcusdt@trade"
 	for {
-		err := stream(url, f)
+		err := stream(cfg.StreamURL, f)
 		log.Println("disconnected", err, "-reconnecting in 5s")
 		time.Sleep(5 * time.Second)
 	}
