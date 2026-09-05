@@ -31,6 +31,14 @@ var (
 )
 
 func (v Venue) StreamURL(symbols []string) (string, error) {
+	names, err := v.StreamNames(symbols)
+	if err != nil {
+		return "", err
+	}
+	return v.Base + "?streams=" + strings.Join(names, "/"), nil
+}
+
+func (v Venue) StreamNames(symbols []string) ([]string, error) {
 	clean := make([]string, 0, len(symbols))
 	for _, s := range symbols {
 		s = strings.ToLower(strings.TrimSpace(s))
@@ -40,10 +48,10 @@ func (v Venue) StreamURL(symbols []string) (string, error) {
 		clean = append(clean, s)
 	}
 	if len(clean) == 0 {
-		return "", errors.New("no symbols configured")
+		return nil, errors.New("no symbols configured")
 	}
 	if n := len(clean) * len(v.Suffixes); n > v.MaxStreams {
-		return "", fmt.Errorf("%s: %d streams exceeds the %d per-connection cap", v.Name, n, v.MaxStreams)
+		return nil, fmt.Errorf("%s: %d streams exceeds the %d per-connection cap", v.Name, n, v.MaxStreams)
 	}
 
 	names := make([]string, 0, len(clean)*len(v.Suffixes))
@@ -52,5 +60,5 @@ func (v Venue) StreamURL(symbols []string) (string, error) {
 			names = append(names, s+suffix)
 		}
 	}
-	return v.Base + "?streams=" + strings.Join(names, "/"), nil
+	return names, nil
 }

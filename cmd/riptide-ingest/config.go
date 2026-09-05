@@ -1,10 +1,13 @@
 package main
 
-import "os"
+import (
+	"os"
+	"strings"
+)
 
 type Config struct {
-	OutputPath string
-	StreamURL  string
+	OutputDir string
+	Symbols   []string
 }
 
 func opt(key, def string) string {
@@ -14,9 +17,25 @@ func opt(key, def string) string {
 	return def
 }
 
+func optList(key string, def []string) []string {
+	var out []string
+	for _, s := range strings.Split(os.Getenv(key), ",") {
+		if s = strings.TrimSpace(s); s != "" {
+			out = append(out, s)
+		}
+	}
+	if len(out) == 0 {
+		return def
+	}
+	return out
+}
+
 func Load() (*Config, error) {
 	return &Config{
-		OutputPath: opt("RIPTIDE_OUTPUT_PATH", "trades.jsonl"),
-		StreamURL:  opt("RIPTIDE_STREAM_URL", "wss://stream.binance.com:9443/ws/btcusdt@trade"),
+		OutputDir: opt("RIPTIDE_OUTPUT_DIR", "data"),
+		Symbols: optList("RIPTIDE_SYMBOLS", []string{
+			"btcusdt", "ethusdt", "solusdt", "xrpusdt", "bnbusdt",
+			"dogeusdt", "adausdt", "avaxusdt", "linkusdt", "ltcusdt",
+		}),
 	}, nil
 }
